@@ -208,7 +208,7 @@ var tBal = 1;
 							doc3[d].trades.sell1 = wp.sell1;
 							doc3[d].trades.sell2 = wp.sell2;
 							
-	 collection.update({
+	 collection.updateOne({
 	},{
                             $set: {
                                 'trades': doc3[d].trades
@@ -351,7 +351,7 @@ var verb = 'GET',
 							doc3[d].trades.bought1 = false;
 							doc3[d].trades.bought2 = false;
 							console.log('set buys true');
-						collection.update({
+						collection.updateOne({
 							},{
 													$set: {
 														'trades': doc3[d].trades
@@ -368,7 +368,7 @@ var verb = 'GET',
 							doc3[d].trades.sold2 = false;
 							//console.log(doc3[d]);
 							console.log('set solds true');
-						collection.update({
+						collection.updateOne({
 							'trades.k': doc3[d].trades.k
 							},{
 													$set: {
@@ -424,7 +424,7 @@ var verb = 'GET',
 
 							console.log('dobuy:');
 							console.log(d3d);
-							collection.update({
+							collection.updateOne({
 								}, {
 									$set: {
 										"trades": d3d.trades
@@ -447,7 +447,7 @@ var verb = 'GET',
 							d3d.trades.bought2 = true;
 														if (godobuy == true){
 godobuy = false;
-								collection.update({
+								collection.updateOne({
 								}, {
 									$set: {
 										"trades": d3d.trades
@@ -476,7 +476,7 @@ godobuy = false;
 
 							console.log('dosell');
 							console.log(d3d);
-							collection.update({
+							collection.updateOne({
 								}, {
 									$set: {
 										"trades": d3d.trades
@@ -499,7 +499,7 @@ godobuy = false;
 							d3d.trades.sold2 = true;
 														if (godosell == true){
 godosell = false;
-								collection.update({
+								collection.updateOne({
 								}, {
 									$set: {
 										"trades": d3d.trades
