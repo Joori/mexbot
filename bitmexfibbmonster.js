@@ -225,7 +225,7 @@ var tBal = 1;
 					});
 				}
  function insert(wp, collection){
-	//console.log(wp);
+	console.log(wp);
 	
 			collection.find({
 
@@ -234,7 +234,7 @@ var tBal = 1;
                     _id: -1
 
                 }).toArray(function(err, doc3) {
-					//console.log(doc3);
+					console.log(doc3);
 					if (doc3.length == 0){
 	 console.log('insert');
 						collection.insertOne({
@@ -243,9 +243,9 @@ var tBal = 1;
 				if (err) console.log(err);
 				
 			if (wp.currencyPair == "BTC_BCH"){
-				////////console.log(wp);
+				console.log(wp);
 			}
-			  //////console.log(res.result);
+			  console.log(res.result);
 			}); 
 					} else {
 					}
@@ -550,8 +550,8 @@ MongoClient.connect(process.env.mongodb || mongodb, function(err, db) {
 			console.log(dbs);
         }
 			doOrders();
-        //////////console.log(dbs);
-						////////////console.log('settimeout');
+			console.log(dbs);
+			console.log('settimeout');
 						setTimeout(function(){
 						doCollections(collections);
 						}, 5000);
