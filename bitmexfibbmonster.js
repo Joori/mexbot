@@ -66,8 +66,8 @@ var callback = function(error, data, response) {
 						greater.push(f[fibb]);
 					}
 			}
-			//console.log(greater);
-			//console.log(lesser);
+			console.log(greater);
+			console.log(lesser);
 			var k = data[v].symbol
 							winners[k] = {}
 							if ((greater.length >= 1 && lesser.length >= 1)){
@@ -120,19 +120,19 @@ var callback = function(error, data, response) {
 				bestBid[symbol] = []
 			}
 			for (var d in data){
-			//console.log(data[d].bidPrice);
+			console.log(data[d].bidPrice);
 	
 			bestBid[symbol] = data[d].bidPrice;
 			bestAsk[symbol] = data[d].askPrice;	
 		}
-		//console.log('Update on ' + table + ':' + symbol + '. New data:\n', data, '\n');
+		console.log('Update on ' + table + ':' + symbol + '. New data:\n', data, '\n');
 		if (!ticks.includes(symbol)){
 					  ticks.push(symbol);
 		var verb = 'GET',
 		  path = '/api/v1/instrument/active',
 		  expires = new Date().getTime() + (60 * 1000), // 1 min in the future
 		  data = {};
-		//console.log(data);
+		console.log(data);
 		// Pre-compute the postBody so we can be sure that we're using *exactly* the same body in the request
 		// and in the signature. If you don't do this, you might get differently-sorted keys and blow the signature.
 		var postBody = JSON.stringify(data);
@@ -166,23 +166,23 @@ var callback = function(error, data, response) {
 				  tickSizes[symbol] = JSON.parse(body)[d].tickSize
 				  initMargins[symbol] = JSON.parse(body)[d].initMargin
 				  console.log(JSON.parse(body)[d]);
-				  //console.log(tickSizes);
+				  console.log(tickSizes);
 			  }
 		  }
 		});}
 		});
 		client.addStream(symbols[v], 'margin', function(data, symbol, table) {
 			if (data[0]){
-			//console.log(data[0])
+			console.log(data[0])
 			tBal=mBal = data[0].marginBalance;
 			mBal = data[0].excessMargin;
-			//console.log(data[0]);
-			//console.log(mBal);
+			console.log(data[0]);
+			console.log(mBal);
 			}
-		//console.log('Update on ' + table + ':' + symbol + '. New data:\n', data, '\n');
+		console.log('Update on ' + table + ':' + symbol + '. New data:\n', data, '\n');
 		});
 	}
-	//console.log(data);
+	console.log(data);
 	
   }
 };
@@ -218,7 +218,7 @@ var tBal = 1;
 	},
 	function(err, result) {
 	
-		//console.log(result.result);
+		console.log(result.result);
 	});
 	}
 					}
@@ -277,7 +277,7 @@ var verb = 'GET',
 		  path = '/api/v1/order',
 		  expires = new Date().getTime() + (60 * 1000), // 1 min in the future
 		  data = {};
-		//console.log(data);
+		console.log(data);
 		// Pre-compute the postBody so we can be sure that we're using *exactly* the same body in the request
 		// and in the signature. If you don't do this, you might get differently-sorted keys and blow the signature.
 		var postBody = JSON.stringify(data);
@@ -305,7 +305,7 @@ var verb = 'GET',
 		request(requestOptions, function(error, response, body) {
 		  if (error) { console.log(error); }
 		  
-		  //console.log((JSON.parse(body)));
+		  console.log((JSON.parse(body)));
 		  var json = JSON.parse(body);
 		  orders = []
 		  for (var o in json){
@@ -334,14 +334,14 @@ var verb = 'GET',
 					for (var d in doc3){
 						for (var o in orders){
 							if (orders[o].symbol == doc3[d].trades.k){
-									//console.log(orders[o].ordStatus);
+									console.log(orders[o].ordStatus);
 								if (orders[o].ordStatus == "Canceled" || orders[o].ordStatus == "Rejected" || orders[o].ordStatus == "Filled"){
 									enablemaybe[doc3[d].trades.k] = true;
 								}
 							}
 						}for (var o in orders){
 							if (orders[o].symbol == doc3[d].trades.k){
-									//console.log(orders[o].ordStatus);
+									console.log(orders[o].ordStatus);
 								if (orders[o].ordStatus == "New"){
 									enablemaybe[doc3[d].trades.k] = false;
 								}
@@ -363,10 +363,10 @@ var verb = 'GET',
 								if (!err) console.log(result.result);
 							});
 						} if (enablemaybe[doc3[d].trades.k] == true && (doc3[d].trades.sold1 == true && doc3[d].trades.sold2 == true)){
-							//console.log(doc3[d]);
+							console.log(doc3[d]);
 							doc3[d].trades.sold1 = false;
 							doc3[d].trades.sold2 = false;
-							//console.log(doc3[d]);
+							console.log(doc3[d]);
 							console.log('set solds true');
 						collection.updateOne({
 							'trades.k': doc3[d].trades.k
@@ -398,26 +398,26 @@ var verb = 'GET',
                 }).toArray(function(err, doc3) {
 
                     for (var d in doc3) {
-							//console.log(tickSizes	);
+							console.log(tickSizes	);
 						if (doc3[d].trades){
 							 var d3d = doc3[d];
 							 var go = false;
 							 for (var d in tickSizes){
-								//console.log(d);
+								console.log(d);
 							if (d == d3d.trades.k){
 							go = true;
 							}							
 							 }
 							if (go == true){
-							//console.log(d3d)	
+							console.log(d3d)	
 						if (d3d.trades.bought1 == false){
-							//console.log(bestAsk)
-							//console.log(d3d.trades.k);
-							//console.log(bestAsk[d3d.trades.k]);
-							//console.log(d3d.trades.buy1);                                                                             
+							console.log(bestAsk)
+							console.log(d3d.trades.k);
+							console.log(bestAsk[d3d.trades.k]);
+							console.log(d3d.trades.buy1);                                                                             
 				                        if (parseFloat(bestAsk[d3d.trades.k]) <= d3d.trades.buy1 && parseFloat(bestAsk[d3d.trades.k]) > 0.00000200)	 {
-                            //////////console.log(d3d.trades.last);
-							//////////console.log(d3d.trades);
+                            console.log(d3d.trades.last);
+							console.log(d3d.trades);
 							d3d.trades.bought1 = true;
 							if (godobuy == true){
 								godobuy = false;
@@ -442,8 +442,8 @@ var verb = 'GET',
 						}
                         if (d3d.trades.buy2) {
                             if (parseFloat(bestAsk[d3d.trades.k])<= d3d.trades.buy2 && d3d.trades.bought2 == false && parseFloat(bestAsk[d3d.trades.k]) > 0.00000200) {
-							//////////console.log(d3d.trades.last);
-							//////////console.log(d3d.trades);
+							console.log(d3d.trades.last);
+							console.log(d3d.trades);
 							d3d.trades.bought2 = true;
 														if (godobuy == true){
 godobuy = false;
@@ -468,8 +468,8 @@ godobuy = false;
                         }
 						if (d3d.trades.sold1 == false){
                         if (parseFloat(bestBid[d3d.trades.k]) >= d3d.trades.sell1 && parseFloat(bestAsk[d3d.trades.k]) > 0.00000200) {
-                            //////////console.log(d3d.trades.last);
-							//////////console.log(d3d.trades);
+                            console.log(d3d.trades.last);
+							console.log(d3d.trades);
 							d3d.trades.sold1 = true;
 							if (godosell == true){
 								godosell = false;
@@ -494,8 +494,8 @@ godobuy = false;
 						}
                         if (d3d.trades.sell2) {
                             if (parseFloat(bestBid[d3d.trades.k]) >= d3d.trades.sell2 && d3d.trades.sold2 == false && parseFloat(bestAsk[d3d.trades.k]) > 0.00000200 ){
-							//////////console.log(d3d.trades.last);
-							//////////console.log(d3d.trades);
+							console.log(d3d.trades.last);
+							console.log(d3d.trades);
 							d3d.trades.sold2 = true;
 														if (godosell == true){
 godosell = false;
@@ -562,7 +562,7 @@ MongoClient.connect(process.env.mongodb || mongodb, function(err, db) {
 				
 					apiInstance.instrumentGetActive(callback);
 					setInterval(function(){
-					//	
+						
 					apiInstance.instrumentGetActive(callback);
 					}, 180000);
     });
@@ -1564,13 +1564,13 @@ app.get('/', function (req, res){
             dbs.push(collInfos[col].name);
             collections.push(dbo.collection(collInfos[col].name));
         }
-        //////////console.log(dbs);				
-		////console.log(tickers);
+        console.log(dbs);				
+		console.log(tickers);
 		var verb = 'GET',
 		  path = '/api/v1/position',
 		  expires = new Date().getTime() + (60 * 1000), // 1 min in the future
 		  data = {filter:{"isOpen":true}};
-		//console.log(data);
+		console.log(data);
 		// Pre-compute the postBody so we can be sure that we're using *exactly* the same body in the request
 		// and in the signature. If you don't do this, you might get differently-sorted keys and blow the signature.
 		var postBody = JSON.stringify(data);
@@ -1598,7 +1598,7 @@ app.get('/', function (req, res){
 		request(requestOptions, function(error, response, body) {
 		  if (error) { console.log(error); }
 		  
-		  //console.log((JSON.parse(body)));
+		  console.log((JSON.parse(body)));
 		  var json = JSON.parse(body);
 		  positions = []
 		  for (var o in json){
@@ -1611,7 +1611,7 @@ var verb = 'GET',
 		  path = '/api/v1/order',
 		  expires = new Date().getTime() + (60 * 1000), // 1 min in the future
 		  data = {filter:{"open":true}};
-		//console.log(data);
+		console.log(data);
 		// Pre-compute the postBody so we can be sure that we're using *exactly* the same body in the request
 		// and in the signature. If you don't do this, you might get differently-sorted keys and blow the signature.
 		var postBody = JSON.stringify(data);
@@ -1639,7 +1639,7 @@ var verb = 'GET',
 		request(requestOptions, function(error, response, body) {
 		  if (error) { console.log(error); }
 		  
-		  //console.log((JSON.parse(body)));
+		  console.log((JSON.parse(body)));
 		  var json = JSON.parse(body);
 		  orders = []
 		  for (var o in json){
@@ -1662,9 +1662,9 @@ var verb = 'GET',
                 }).toArray(async function(err, doc3) {
 					for (var d in doc3){
 						
-					//	////////console.log(doc3[d])
+					console.log(doc3[d])
 						
-						//////////console.log(doc3[d].trades);
+					console.log(doc3[d].trades);
 						if (doc3[d].trades){
 							
 						if (doc3[d].trades.bought1 == false){
@@ -1675,7 +1675,7 @@ var verb = 'GET',
 						}
 						if (doc3[d].trades.bought2 == false){
 							if (doc3[d].trades.buy2 != undefined){
-							//console.log(bestAsk);
+							console.log(bestAsk);
 							var sl = {'direction': 'buy2', 'pair' : doc3[d].trades.k, 'stoplimit': doc3[d].trades.buy2, 'currentAsk': bestAsk[doc3[d].trades.k], 'percent': (parseFloat(bestAsk[doc3[d].trades.k]) / parseFloat(doc3[d].trades.buy2))}
 							
 						stoplimits.push(sl);
