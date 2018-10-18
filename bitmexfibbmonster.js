@@ -7,7 +7,7 @@ var linkid;
 const express = require('express');
 var startDate = new Date()
 var path = require('path')
-var startBtc =  parseFloat(process.env.startBtc);
+ var startBtc =  parseFloat(process.env.startBtc);
 var app = express()
 const tw = require('./trendyways.js');
 var request = require('request');
@@ -208,7 +208,7 @@ var tBal = 1;
 							doc3[d].trades.sell1 = wp.sell1;
 							doc3[d].trades.sell2 = wp.sell2;
 							
-	 collection.updateOne({
+	 collection.update({
 	},{
                             $set: {
                                 'trades': doc3[d].trades
@@ -225,7 +225,7 @@ var tBal = 1;
 					});
 				}
  function insert(wp, collection){
-	console.log(wp);
+	//console.log(wp);
 	
 			collection.find({
 
@@ -234,18 +234,18 @@ var tBal = 1;
                     _id: -1
 
                 }).toArray(function(err, doc3) {
-					console.log(doc3);
+					//console.log(doc3);
 					if (doc3.length == 0){
 	 console.log('insert');
-			collection.insertOne({
+						collection.insertOne({
 				'trades': wp
 			}, function(err, res) {
 				if (err) console.log(err);
 				
 			if (wp.currencyPair == "BTC_BCH"){
-				console.log(wp);
+				////////console.log(wp);
 			}
-			console.log(res.result);
+			  //////console.log(res.result);
 			}); 
 					} else {
 					}
@@ -351,7 +351,7 @@ var verb = 'GET',
 							doc3[d].trades.bought1 = false;
 							doc3[d].trades.bought2 = false;
 							console.log('set buys true');
-						collection.updateOne({
+						collection.update({
 							},{
 													$set: {
 														'trades': doc3[d].trades
@@ -368,7 +368,7 @@ var verb = 'GET',
 							doc3[d].trades.sold2 = false;
 							//console.log(doc3[d]);
 							console.log('set solds true');
-						collection.updateOne({
+						collection.update({
 							'trades.k': doc3[d].trades.k
 							},{
 													$set: {
@@ -424,7 +424,7 @@ var verb = 'GET',
 
 							console.log('dobuy:');
 							console.log(d3d);
-							collection.updateOne({
+							collection.update({
 								}, {
 									$set: {
 										"trades": d3d.trades
@@ -447,7 +447,7 @@ var verb = 'GET',
 							d3d.trades.bought2 = true;
 														if (godobuy == true){
 godobuy = false;
-								collection.updateOne({
+								collection.update({
 								}, {
 									$set: {
 										"trades": d3d.trades
@@ -476,7 +476,7 @@ godobuy = false;
 
 							console.log('dosell');
 							console.log(d3d);
-							collection.updateOne({
+							collection.update({
 								}, {
 									$set: {
 										"trades": d3d.trades
@@ -499,7 +499,7 @@ godobuy = false;
 							d3d.trades.sold2 = true;
 														if (godosell == true){
 godosell = false;
-								collection.updateOne({
+								collection.update({
 								}, {
 									$set: {
 										"trades": d3d.trades
@@ -535,7 +535,7 @@ godosell = false;
 }		
 				
  setTimeout(function(){
- MongoClient.connect(process.env.mongodb || mongodb, function(err, db) {
+MongoClient.connect(process.env.mongodb || mongodb, function(err, db) {
 	console.log(err);
 	//insert(
    dbo = db.db(process.env.thedatabase)
